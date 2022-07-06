@@ -1,0 +1,149 @@
+#connectmenudiv {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 25vh auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #8a8a8a;
+    color: white;
+}
+
+#playerlistdiv {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 25vh auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #8a8a8a;
+    color: white;
+    display: none;
+}
+
+.title {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.linkdiv {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+}
+
+.link {
+    position: relative;
+    padding-left: 5px;
+}
+
+body {
+    background-color: paleturquoise;
+}
+
+.usernamediv {
+    color: white;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #8a8a8a;
+    display: none;
+}
+
+.leadermsg {
+    display: none;
+}
+
+.startbtn {
+    display: none;
+    width: 100%;
+}
+
+#enterstringdiv {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 25vh auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #8a8a8a;
+    color: white;
+    display: none;
+}
+
+#submittedplayersdiv {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 25vh auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #8a8a8a;
+    color: white;
+    display: none;
+}
+
+#endgamediv {
+    color: white;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+}
+
+.endbtn {
+    border-radius: 5px;
+}
+
+#alertbox {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -40%);
+}
+
+#helpbox {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -40%);
+}
+
+#infobox {
+    position: absolute;
+    bottom: 70px;
+}
+
+#gamemaindiv {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 25vh auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #8a8a8a;
+    color: white;
+    display: none;
+}
+
+#gamemain-string {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.gamesubmitbtn {
+    display: none;
+    width: 100%;
+}
+
+#endscreendiv {
+    max-width: 400px;
+    max-height: 400px;
+    margin: 25vh auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #8a8a8a;
+    display: none;
+}
+
+.endscreentitle {
+    font-size: 28pt;
+    color: lime;
+}
