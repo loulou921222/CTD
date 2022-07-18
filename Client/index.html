@@ -15,7 +15,7 @@
          <a href="javascript:;" class="link" onclick="helpalert();">help</a>
       </div>
       <div class="usernamediv">
-         <span class="username">loulou921222!</span>
+         <span class="username"></span>
          <span class="leadermsg">(leader)</span>
       </div>
       <h1 class="title text-center">cipher. transpher. decipher.</h1>
@@ -23,7 +23,7 @@
          <form id="infoform" onsubmit="connect();return false;" method="post">
             <div class="mb-3">
                <label for="username" class="form-label">Username</label>
-               <input type="text" class="form-control illegalchar" id="username" oninput="replaceillegalchars(this);">
+               <input type="text" class="form-control" id="username">
                </div>
             <div class="mb-3">
             <label for="IP" class="form-label">Server IP</label>
@@ -46,7 +46,7 @@
          <form id="stringform" onsubmit="submitstring();return false;" method="post">
             <div class="mb-3">
                <label for="inputstring" class="form-label">Input your string</label>
-               <input type="text" class="form-control" id="inputstring" autocomplete="off" maxlength="100">
+               <input type="text" class="form-control illegalchar" id="inputstring" autocomplete="off" maxlength="100" oninput="replaceillegalchars(this);">
             </div>
             <input type="submit" hidden />
          </form>
@@ -68,7 +68,7 @@
             </div>
             <div class="mb-3">
                <label for="inputguess" class="form-label">Enter the string given to you by&nbsp;</label><b><span class="gamemain-explainer"></span></b><span>:</span>
-               <input type="text" class="form-control" id="inputguess" autocomplete="off" maxlength="100">
+               <input type="text" class="form-control illegalchar" id="inputguess" autocomplete="off" maxlength="100" oninput="replaceillegalchars(this);">
             </div>
             <input type="submit" hidden />
          </form>

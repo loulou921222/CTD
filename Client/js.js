@@ -214,7 +214,7 @@ function connect() {
             if (command == "correct") {
                $("#gamemaindiv").hide();
                $("#endscreendiv").show();
-               setTimeout(returnToPlayerList, 8000);
+               setTimeout(returnToPlayerList, 5000);
             }
          };
 

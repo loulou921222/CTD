@@ -41,7 +41,7 @@ fun Application.configureSockets() {
                     val data = receivedData[1]
                     if (command == "clientConnect") {
                         thisConnection.name = data
-                        if (gameState == 1) {
+                        if (gameState != 0) {
                             thisConnection.session.send("gameStarted null")
                             thisConnection.session.close()
                             println("${thisConnection.name} cannot join as the game has already started.")
@@ -166,7 +166,6 @@ fun Application.configureSockets() {
                         }
                     }
                     if (command == "checkAnswers") {
-                        println("a")
                         submittedGuesses = mutableListOf()
                         connections.forEach {
                             it.session.send("requestGuess null")
@@ -186,7 +185,7 @@ fun Application.configureSockets() {
                                         }
                                     }
                                     if (correctAnswers == submittedGuesses.size) {
-                                        println("One or more answers is/are incorrect!")
+                                        println("All answers correct!")
                                         connections.forEach {
                                             it.session.send("correct null")
                                         }
@@ -194,9 +193,27 @@ fun Application.configureSockets() {
                                         submittedPlayerCount = 0
                                     }
                                     else {
-                                        println("All answers correct!")
+                                        println("One or more answers is/are incorrect!")
                                         connections.forEach {
                                             it.session.send("incorrect null")
+                                        }
+                                    }
+                                    //return to main menu
+                                    var playerNamesData: MutableList<Any> = mutableListOf()
+                                    connectionNames.forEach {
+                                        playerNamesData += it[1].toString().replace("&", "&amp;").replace(" ", "&nbsp;").replace("<", "&lt;").replace(">", "&gt;") // prevent XSS (ask me how I know)
+                                    }
+                                    connections.forEach {
+                                        //player count
+                                        it.session.send("playerCount ${playerCount}")
+                                        //player names
+                                        it.session.send("players ${playerNamesData.joinToString(separator = " ")}")
+                                        //permission level
+                                        if (connections.indexOf(it) == 0) {
+                                            it.session.send("permissionLevel 1")
+                                        }
+                                        else {
+                                            it.session.send("permissionLevel 0")
                                         }
                                     }
                                     break
@@ -206,7 +223,6 @@ fun Application.configureSockets() {
                         }
                     }
                     if (command == "submitGuess") {
-                        println("b")
                         submittedGuesses += mutableListOf(thisConnection, data)
                     }
                 }
