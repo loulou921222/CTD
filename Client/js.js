@@ -46,6 +46,7 @@ function connect() {
                   else {
                      var listitem = '<li>' + players[playerindex] + '</li>';
                   }
+                  listitem = listitem.replace(/&nbsp;/g, " ");
                   $('.playerlist').append(listitem);
                }
             }

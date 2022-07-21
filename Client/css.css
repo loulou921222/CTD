@@ -18,6 +18,10 @@
     overflow-wrap: break-word;
 }
 
+.gamemain-guesser, .gamemain-explainer {
+    overflow-wrap: break-word;
+}
+
 .title {
     padding-top: 30px;
     padding-bottom: 10px;

@@ -199,6 +199,8 @@ fun Application.configureSockets() {
                                         }
                                     }
                                     //return to main menu
+
+                                    //player names
                                     var playerNamesData: MutableList<Any> = mutableListOf()
                                     connectionNames.forEach {
                                         playerNamesData += it[1].toString().replace("&", "&amp;").replace(" ", "&nbsp;").replace("<", "&lt;").replace(">", "&gt;") // prevent XSS (ask me how I know)
