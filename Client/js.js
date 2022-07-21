@@ -54,16 +54,17 @@ function connect() {
                if (permissionLevel) {
                   $(".leadermsg").show();
                   $(".startbtn").show();
-                  if (state != 0) {
+                  if (state > 1) {
                      $("#endgamediv").show();
+                  }
+                  else {
+                     $("#endgamediv").hide();
                   }
                }
                else {
                   $(".leadermsg").hide();
                   $(".startbtn").hide();
-                  if (state != 0) {
-                     $("#endgamediv").hide();
-                  }
+                  $("#endgamediv").hide();
                }
             }
             if (command == "gameStarted") {
@@ -90,7 +91,6 @@ function connect() {
                   bsalert("Leader ended game.");
                }
                returnToPlayerList();
-               
             }
             if (command == "submittedPlayers") {
                var submittedPlayers = parseInt(data);
@@ -245,11 +245,11 @@ function gamereset() {
    players = []
    permissionLevel = 0;
    submitted = 0;
-   $("#endgamediv").hide()
+   $("#endgamediv").hide();
    $("#enterstringdiv").hide();
    $("#playerlistdiv").hide();
    $(".usernamediv").hide();
-   $("#submittedplayersdiv").hide()
+   $("#submittedplayersdiv").hide();
    $("#connectmenudiv").show();
    $("#gamemaindiv").hide();
    $("#endscreendiv").hide();
