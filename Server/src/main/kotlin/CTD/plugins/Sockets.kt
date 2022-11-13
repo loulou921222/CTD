@@ -28,7 +28,7 @@ fun Application.configureSockets() {
         var submittedGuesses: MutableList<MutableList<Any>> = mutableListOf() //[connection, guess]
 
         webSocket("/CTD") {
-            //println("Adding user!")
+            //printtm("Adding user!")
             var thisConnection = Connection(this)
             connections += thisConnection
             try {
@@ -44,14 +44,14 @@ fun Application.configureSockets() {
                         if (gameState != 0) {
                             thisConnection.session.send("gameStarted null")
                             thisConnection.session.close()
-                            println("${thisConnection.name} cannot join as the game has already started.")
+                            printtm("${thisConnection.name} cannot join as the game has already started.")
                             kick = thisConnection
                         }
                         else {
-                            println("${thisConnection.name} joined.")
+                            printtm("${thisConnection.name} joined.")
                             connectionNames.add(mutableListOf(thisConnection, thisConnection.name!!))
                             playerCount = connectionNames.count()
-                            //println(connectionNames)
+                            //printtm(connectionNames)
 
                             //update clients
 
@@ -81,12 +81,12 @@ fun Application.configureSockets() {
                     }*/
                     if (command == "requestStart") {
                         if (playerCount < 3) {
-                            println("Error: 3 or more players are required to start")
+                            printtm("Error: 3 or more players are required to start")
                         }
                         else {
                             gameState = 1
                             // game start
-                            println("the game has started.")
+                            printtm("the game has started.")
                             connectionStrings = mutableListOf()
                             connections.forEach {
                                 it.session.send("gameStart null")
@@ -98,7 +98,7 @@ fun Application.configureSockets() {
                                         connections.forEach {
                                             it.session.send("guessStart null")
                                         }
-                                        println("all players have submitted.")
+                                        printtm("all players have submitted.")
 
                                         connectionStrings.shuffle()
                                         connectionAssignments = createConnectionAssignments(connectionStrings, connections)
@@ -126,10 +126,10 @@ fun Application.configureSockets() {
                         connectionStrings += mutableListOf(thisConnection, data)
                         submittedPlayerCount = connectionStrings.count()
                         if (playerCount - submittedPlayerCount == 1) {
-                            println("waiting on 1 more player to submit their string...")
+                            printtm("waiting on 1 more player to submit their string...")
                         }
                         else {
-                            println("waiting on ${playerCount - submittedPlayerCount} more players to submit their strings...")
+                            printtm("waiting on ${playerCount - submittedPlayerCount} more players to submit their strings...")
                         }
                         connections.forEach {
                             it.session.send("playerCount ${playerCount}")
@@ -139,7 +139,7 @@ fun Application.configureSockets() {
                     if (command == "endGame") {
                         gameState = 0
                         submittedPlayerCount = 0
-                        println("Leader ended game.")
+                        printtm("Leader ended game.")
                         connections.forEach {
                             it.session.send("gameEnded leaderEnded")
 
@@ -173,7 +173,7 @@ fun Application.configureSockets() {
                         GlobalScope.launch {
                             while (true) {
                                 if ((gameState == 2) && (playerCount - submittedGuesses.size == 0)) {
-                                    println("Answers submitted.")
+                                    printtm("Answers submitted.")
                                     var correctAnswers = 0
                                     for (guessesi in 0 until submittedGuesses.size) {
                                         for (answerStringi in 0 until connectionAssignments.size) {
@@ -185,7 +185,7 @@ fun Application.configureSockets() {
                                         }
                                     }
                                     if (correctAnswers == submittedGuesses.size) {
-                                        println("All answers correct!")
+                                        printtm("All answers correct!")
                                         connections.forEach {
                                             it.session.send("correct null")
                                         }
@@ -193,7 +193,7 @@ fun Application.configureSockets() {
                                         submittedPlayerCount = 0
                                     }
                                     else {
-                                        println("One or more answers is/are incorrect!")
+                                        printtm("One or more answers is/are incorrect!")
                                         connections.forEach {
                                             it.session.send("incorrect null")
                                         }
@@ -229,19 +229,19 @@ fun Application.configureSockets() {
                     }
                 }
             } catch (e: Exception) {
-                println(e.localizedMessage)
+                printtm(e.localizedMessage)
             } finally {
-                //println("$thisConnection disconnected.")
+                //printtm("$thisConnection disconnected.")
                 if (thisConnection == kick) {
                     kick = null
                 }
                 else {
-                    println("${thisConnection.name} left.")
+                    printtm("${thisConnection.name} left.")
                 }
                 connections -= thisConnection
                 connectionNames -= mutableListOf(thisConnection, thisConnection.name!!)
                 playerCount = connectionNames.count()
-                //println(connectionNames)
+                //printtm(connectionNames)
 
                 //update clients
 
@@ -269,7 +269,7 @@ fun Application.configureSockets() {
                 if (((gameState == 1) || (gameState == 2)) && (playerCount < 3)) {
                     gameState = 0
                     submittedPlayerCount = 0
-                    println("Game has ended as there are no longer enough players.")
+                    printtm("Game has ended as there are no longer enough players.")
                     connections.forEach {
                         it.session.send("gameEnded notEnoughPlayers")
 
@@ -310,10 +310,10 @@ fun Application.configureSockets() {
                     }
                     submittedPlayerCount = connectionStrings.count()
                     if (playerCount - submittedPlayerCount == 1) {
-                        println("waiting on 1 more player to submit their string...")
+                        printtm("waiting on 1 more player to submit their string...")
                     }
                     else {
-                        println("waiting on ${playerCount - submittedPlayerCount} more players to submit their strings...")
+                        printtm("waiting on ${playerCount - submittedPlayerCount} more players to submit their strings...")
                     }
                     connections.forEach {
                         it.session.send("playerCount ${playerCount}")
