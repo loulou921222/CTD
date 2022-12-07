@@ -123,7 +123,9 @@ fun Application.configureSockets() {
                         }
                     }
                     if (command == "submitString") {
-                        connectionStrings += mutableListOf(thisConnection, data)
+                        if (mutableListOf(thisConnection, data) !in connectionStrings) {
+                            connectionStrings += mutableListOf(thisConnection, data)
+                        }
                         submittedPlayerCount = connectionStrings.count()
                         if (playerCount - submittedPlayerCount == 1) {
                             printtm("waiting on 1 more player to submit their string...")
