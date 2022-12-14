@@ -1,3 +1,5 @@
+@file:OptIn(DelicateCoroutinesApi::class)
+
 package CTD.plugins
 
 import CTD.*
@@ -5,6 +7,7 @@ import io.ktor.websocket.*
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -123,9 +126,17 @@ fun Application.configureSockets() {
                         }
                     }
                     if (command == "submitString") {
-                        if (mutableListOf(thisConnection, data) !in connectionStrings) {
+                        // Don't allow same client to submit twice
+                        var submitted = 0
+                        connectionStrings.forEach {
+                            if (it[0] == thisConnection) {
+                                submitted = 1
+                            }
+                        }
+                        if (submitted == 0) {
                             connectionStrings += mutableListOf(thisConnection, data)
                         }
+
                         submittedPlayerCount = connectionStrings.count()
                         if (playerCount - submittedPlayerCount == 1) {
                             printtm("waiting on 1 more player to submit their string...")
