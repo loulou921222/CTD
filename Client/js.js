@@ -210,7 +210,13 @@ function connect() {
                ws.send(`submitGuess ${myguess}`);
             }
             if (command == "incorrect") {
-               bsalert("One or more answers is/are incorrect! Check your answers through again, and try again.");
+               var incorrectAnswers = parseInt(data);
+               if (incorrectAnswers == 1) {
+                  bsalert("One answer is incorrect! Check your answers through again, and try again.");
+               }
+               else {
+                  bsalert(`${incorrectAnswers} answers are incorrect! Check your answers through again, and try again.`);
+               }
             }
             if (command == "correct") {
                $("#gamemaindiv").hide();

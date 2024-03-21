@@ -206,9 +206,10 @@ fun Application.configureSockets() {
                                         submittedPlayerCount = 0
                                     }
                                     else {
-                                        printtm("One or more answers is/are incorrect!")
+                                        var incorrectAnswers = submittedGuesses.size - correctAnswers
+                                        printtm("$incorrectAnswers answer(s) incorrect!")
                                         connections.forEach {
-                                            it.session.send("incorrect null")
+                                            it.session.send("incorrect $incorrectAnswers")
                                         }
                                     }
                                     //return to main menu
